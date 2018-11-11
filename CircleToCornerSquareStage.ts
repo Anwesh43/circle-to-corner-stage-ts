@@ -6,7 +6,7 @@ const RADIUS_FACTOR : number = 4
 const STROKE_FACTOR : number = 60
 const lines : number = 4
 const circles : number = 4
-const nodes : number = 4
+const nodes : number = 5
 const parts : number = 2
 
 const getSCNumber : Function = (o : number, s : number, sc : number) : number => o + (s - o) * sc
@@ -73,7 +73,9 @@ const drawCTCSNode : Function = (context : CanvasRenderingContext2D, i : number,
         const sc : number = divideScale(sc2, j, lines)
         const cp1 : CircularPoint = getCircularPointForIndex(j, lineDeg, size)
         const cp2 : CircularPoint = getCircularPointForIndex(j + 1, lineDeg, size)
-        cp1.drawLineToPoint(context, cp2, sc)
+        if (sc > 0) {
+            cp1.drawLineToPoint(context, cp2, sc)
+        }
     }
     context.restore()
 }
@@ -171,7 +173,7 @@ class CTCSNode {
     }
 
     draw(context : CanvasRenderingContext2D) {
-        drawCTCSNode(context)
+        drawCTCSNode(context, this.i, this.state.scale)
         if (this.next) {
             this.next.draw(context)
         }
