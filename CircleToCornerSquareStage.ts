@@ -218,3 +218,24 @@ class CircleToCornerSquare {
         this.curr.startUpdating(cb)
     }
 }
+
+ class Renderer {
+    ctcs : CircleToCornerSquare = new CircleToCornerSquare()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ctcs.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.ctcs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ctcs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+ }
