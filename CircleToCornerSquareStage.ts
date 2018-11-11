@@ -1,11 +1,11 @@
 const w : number = window.innerWidth, h : number = window.innerHeight
-const DELAY : number = 50
+const DELAY : number = 20
 const color : String = "#01579B"
 const SIZE_FACTOR : number = 3
 const RADIUS_FACTOR : number = 4
-const STROKE_FACTOR : number = 60
-const lines : number = 4
-const circles : number = 4
+const STROKE_FACTOR : number = 100
+const lines : number = 6
+const circles : number = 6
 const nodes : number = 5
 const parts : number = 2
 
@@ -58,7 +58,7 @@ const drawCTCSNode : Function = (context : CanvasRenderingContext2D, i : number,
     context.lineCap = 'round'
     context.lineWidth = Math.min(w, h) / STROKE_FACTOR
     const lineDeg : number = 2 * Math.PI / lines
-    const circleDeg : number = 2 * Math.PI / lines
+    const circleDeg : number = 2 * Math.PI / circles
     context.save()
     context.translate(gap * (i + 1), h / 2)
     const sc1 : number = divideScale(scale, 0, 2)
@@ -144,7 +144,7 @@ class Animator {
     start(cb : Function) {
         if (!this.animated) {
             this.animated = true
-            this.interval = setInterval(cb, 50)
+            this.interval = setInterval(cb, DELAY)
         }
     }
 
